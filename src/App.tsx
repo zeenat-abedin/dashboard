@@ -1,10 +1,16 @@
+import Counter from "./components/Counter/Counter";
 import Dashboard from "./components/Dashboard/Dashboard";
+import RichTextEditor from "./components/RichTextEditor/RichTextEditor";
 
 function App() {
   return (
+    <>
     <div >
-      <Dashboard/>
+      <Counter />
+      <RichTextEditor/>
     </div>
+    <Dashboard />
+    </>
   );
 }
 

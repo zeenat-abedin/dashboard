@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
-
+import { Chart, registerables } from 'chart.js';
 import { Typography, Box, Card, CardContent, Avatar } from '@mui/material';
 
 import Counter from '../Counter/Counter';
@@ -26,9 +26,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box className={classes.root}>
-      <div className={classes.counterContainer}>
+      {/* <div className={classes.counterContainer}>
         <Counter />
-      </div>
+      </div> */}
       <div className={classes.chartContainer}>
         <Typography variant="h6" gutterBottom>
           User Profile Trend
@@ -44,14 +44,14 @@ const Dashboard: React.FC = () => {
               src="/path/to/avatar.jpg"
             />
             <Typography variant="h6" component="h2">
-              {userData.name}
+              {userData? userData.name : 'Loading...'}
             </Typography>
-            <Typography color="textSecondary">{userData.email}</Typography>
+            <Typography color="textSecondary">{userData?  userData.email : 'Loading...'}</Typography>
             <Typography variant="body2" gutterBottom>
-              {userData.address}
+              {userData? userData.address : 'Loading...'}
             </Typography>
             <Typography variant="body2" gutterBottom>
-              {userData.phone}
+              {userData? userData.phone : 'Loading...'}
             </Typography>
           </CardContent>
         </Card>
@@ -61,3 +61,5 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+Chart.register(...registerables);
