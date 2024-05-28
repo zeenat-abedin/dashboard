@@ -24,7 +24,7 @@ const Counter: React.FC = () => {
   };
 
   return (
-    <Box sx={{ position: 'relative', height: '300px' }}>
+    <Box sx={{ position: 'relative', height: '400px', margin: '3rem 2rem' }}>
       <animated.div
         style={{
           ...backgroundStyle,
@@ -33,10 +33,11 @@ const Counter: React.FC = () => {
           bottom: 0,
           left: 0,
           right: 0,
+          borderRadius: '20px'
         }}
       />
       <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography sx={{ display: 'flex', justifyContent: 'center' }} variant="h4" gutterBottom>
           Count: {count}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

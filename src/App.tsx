@@ -5,7 +5,7 @@ import RichTextEditor from "./components/RichTextEditor/RichTextEditor";
 function App() {
   return (
     <>
-    <div >
+    <div className="top-container">
       <Counter />
       <RichTextEditor/>
     </div>
