@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { addUserData } from '../../store/userDataSlice';
-// import { saveToLocalStorage } from '../../utils/storageUtils';
-import styles from './UserDataFormStyles.module.css';
+import  saveToLocalStorage  from '../../utils/storageUtils';
 
 
 interface UserData {
@@ -49,7 +48,7 @@ const UserDataForm: React.FC = () => {
     e.preventDefault();
     const userData = { ...formData, id: uuidv4() };
     dispatch(addUserData(userData));
-    saveToLocalStorage('userData', userData);
+    new saveToLocalStorage();
     setUnsavedChanges(false);
   };
 
