@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       padding: theme.spacing(4),
     },
-    counterContainer: {
-      marginBottom: theme.spacing(4),
-    },
     chartContainer: {
       width: '100%',
       maxWidth: 800,

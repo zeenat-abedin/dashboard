@@ -4,7 +4,6 @@ import { Bar } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import { Typography, Box, Card, CardContent, Avatar } from '@mui/material';
 
-import Counter from '../Counter/Counter';
 import { RootState } from '../../store/store';
 import useStyles from './DashboardStyles';
 
@@ -26,15 +25,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box className={classes.root}>
-      {/* <div className={classes.counterContainer}>
-        <Counter />
-      </div> */}
-      <div className={classes.chartContainer}>
-        <Typography variant="h6" gutterBottom>
-          User Profile Trend
-        </Typography>
-        <Bar data={chartData} />
-      </div>
       <div className={classes.userProfileContainer}>
         <Card className={classes.userProfileCard}>
           <CardContent>
@@ -56,6 +46,12 @@ const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+      <div className={classes.chartContainer}>
+        <Typography variant="h6" gutterBottom>
+          User Profile Trend
+        </Typography>
+        <Bar data={chartData} />
+      </div>     
     </Box>
   );
 };
