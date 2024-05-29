@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import React, { useEffect, useState } from 'react';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Box, Typography } from '@mui/material';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -11,17 +11,26 @@ interface RichTextEditorProps {
 }
 
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ userData }) => {
-//  const [editorState, setEditorState] = useState(() => {
-//      const contentState = ContentState?.createFromText(userData?.name);
-//      console.log(contentState)
-//     return EditorState.createWithContent(contentState);
-//   });
+const RichTextEditor: React.FC<RichTextEditorProps> = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    useEffect(() => {
+    const savedContentKey = Object.keys(localStorage).find(key => key.startsWith('editorContent-'));
+    if (savedContentKey) {
+        const savedContent = localStorage.getItem(savedContentKey);
+        if (savedContent) {
+            const rawContent = JSON.parse(savedContent);
+            const editorState = EditorState.createWithContent(convertFromRaw(rawContent));
+            setEditorState(editorState);
+        }
+    }
+    }, []);
+
     const handleSave = () => {
         const contentState = editorState.getCurrentContent();
         const rawContent = convertToRaw(contentState);
-        console.log(rawContent);
+        const serializedContent = JSON.stringify(rawContent);
+        localStorage.setItem(`editorContent-${Date.now()}`, serializedContent);
     };
 
     const handleEditorChange = (state: EditorState) => {
