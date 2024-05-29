@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
             <Avatar
               className={classes.userProfileAvatar}
               alt="User Avatar"
-              src="/path/to/avatar.jpg"
+              src="https://avatar.iran.liara.run/public"
             />
             <Typography variant="h6" component="h2">
               {userData? userData.name : 'Loading...'}
