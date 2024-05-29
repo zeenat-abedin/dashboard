@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import { Box, Typography } from '@mui/material';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-const RichTextEditor: React.FC = () => {
+interface RichTextEditorProps {
+  userData: {
+    name: string;
+  };
+}
+
+
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ userData }) => {
+//  const [editorState, setEditorState] = useState(() => {
+//      const contentState = ContentState?.createFromText(userData?.name);
+//      console.log(contentState)
+//     return EditorState.createWithContent(contentState);
+//   });
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-    const handleEditorChange = (state: EditorState) => {
-        setEditorState(state);
-    };
-
     const handleSave = () => {
         const contentState = editorState.getCurrentContent();
         const rawContent = convertToRaw(contentState);
-        // Save the rawContent to your desired storage (e.g., local storage, database)
         console.log(rawContent);
+    };
+
+    const handleEditorChange = (state: EditorState) => {
+        setEditorState(state);
+        handleSave()
     };
 
     return (

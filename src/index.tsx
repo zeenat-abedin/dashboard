@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+
+import App from './App';
+import theme from './theme';
+import './index.css';
 import { store } from './store/store';
 
 const root = ReactDOM.createRoot(
@@ -12,11 +14,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-  <Provider store={store}>
-  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+    <Provider store={store}>
+    <ThemeProvider theme={theme}>
     <App />
-  </ThemeProvider>
-  </Provider>
+    </ThemeProvider>
+    </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
