@@ -4,6 +4,7 @@ import { Box, TextField, Button, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { addUserData } from '../../store/userDataSlice';
 import  saveToLocalStorage  from '../../utils/storageUtils';
+import UnsavedAlertDialog from './UnsavedAlertDialog';
 
 
 interface UserData {
@@ -24,20 +25,22 @@ const UserDataForm: React.FC = () => {
     phone: '',
   });
   const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (unsavedChanges) {
-        return 'You have unsaved changes. Are you sure you want to leave?';
-      }
-    };
+  const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    if (unsavedChanges) {
+      e.preventDefault();
+      setShowDialog(true);
+    }
+  };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+  window.addEventListener('beforeunload', handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [unsavedChanges]);
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, [unsavedChanges]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,6 +56,7 @@ const UserDataForm: React.FC = () => {
   };
 
   return (
+    <>
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
       <Typography variant="h5" gutterBottom>
         User Data Form
@@ -94,7 +98,11 @@ const UserDataForm: React.FC = () => {
           Save
         </Button>
       </Box>
-    </Box>
+      </Box>
+      {showDialog &&
+        <UnsavedAlertDialog showDialog={showDialog} setShowDialog={setShowDialog} />
+      }
+    </>
   );
 };
 
