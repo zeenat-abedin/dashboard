@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebaseConfig';
+
 let isAuthenticated: boolean = false;
 let mockUser: any = null;
 
@@ -14,3 +18,19 @@ export const signout = (): void => {
 export const getIsAuthenticated = (): boolean => isAuthenticated;
 
 export const getUser = (): any => mockUser;
+
+export const useAuth = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user:any) => {
+      if (user) {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
+    });
+
+    return unsubscribe;
+  }, [navigate]);
+};

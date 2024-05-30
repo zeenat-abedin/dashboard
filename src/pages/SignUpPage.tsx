@@ -9,8 +9,8 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { authenticate } from '../utils/auth';
 import { LockOutlined } from '@mui/icons-material';
+import { authenticate } from '../utils/auth';
 
 interface SignUpProps {}
 
@@ -20,18 +20,20 @@ const SignUpPage: React.FC<SignUpProps> = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const navigate = useNavigate();
 
+  
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    // Mock authentication
     const mockUser = { email };
     authenticate(mockUser);
     navigate('/dashboard');
   };
 
+ 
   return (
     <>
       <div className="signInPageBackground">

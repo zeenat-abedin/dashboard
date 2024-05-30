@@ -12,6 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import { authenticate } from '../utils/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import '../globalStyles.css'
 
 interface SignInProps {}
@@ -21,13 +22,35 @@ const SignInPage: React.FC<SignInProps> = () => {
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Mock authentication
     const mockUser = { email };
     authenticate(mockUser);
     navigate('/dashboard');
   };
+
+   const handleGoogleSignIn = () => {
+  signInWithPopup(auth, provider)
+   .then((result: any) => {
+    const idToken = result.credential.idToken;
+    if (idToken) {
+        console.log(idToken);
+    } else {
+        console.error('ID token is null.');
+    }
+   })
+   .catch((error: any) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const email = error.email;
+    const credential = GoogleAuthProvider.credentialFromError(error);
+     console.error(errorMessage);
+   });
+  };
+
 
   return (
     <>
@@ -82,7 +105,15 @@ const SignInPage: React.FC<SignInProps> = () => {
               onClick={handleSubmit}
             >
               Login
-            </Button>
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handleGoogleSignIn}
+          >
+          Sign In with Google
+          </Button>
             <Grid container justifyContent={"flex-end"}>
               <Grid item>
                 <Link to="/signup">Don't have an account? Signup</Link>
