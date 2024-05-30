@@ -1,6 +1,0 @@
-.top-container{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1rem;
-    /* margin: 2rem; */
-}
