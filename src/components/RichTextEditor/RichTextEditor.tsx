@@ -11,7 +11,7 @@ interface RichTextEditorProps {
 }
 
 
-const RichTextEditor: React.FC<RichTextEditorProps> = () => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({userData}) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     useEffect(() => {
