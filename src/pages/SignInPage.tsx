@@ -16,26 +16,52 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import '../globalStyles.css'
 
 interface SignInProps {}
+interface Errors {
+  emailError?: string;
+  passwordError?: string;
+}
 
 const SignInPage: React.FC<SignInProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [errors, setErrors] = useState<Errors>({ emailError: '', passwordError: '' });
+
   const navigate = useNavigate();
 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
 
+  const validateFields = () => {
+  if (!email.trim() ||!password.trim()) {
+    if (!email.trim()) {
+      setErrors({...errors, emailError: 'Email is required.' });
+    }
+    if (!password.trim()) {
+      setErrors({...errors, passwordError: 'Password is required.' });
+    }
+    return false;
+  }
+  setErrors({ emailError: '', passwordError: '' });
+  return true;
+};
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const mockUser = { email };
-    authenticate(mockUser);
+    console.log("Submitting form");
+    if (!validateFields()) {
+      console.log("Validation failed");
+      return;
+    }
+    console.log("Validating fields");
+    authenticate({ email });
+    console.log("Navigating to dashboard");
     navigate('/dashboard');
   };
 
    const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider)
    .then((result: any) => {
-    const idToken = result.credential.idToken;
+    const idToken = result.credential?.idToken;
     if (idToken) {
         console.log(idToken);
     } else {
@@ -78,6 +104,8 @@ const SignInPage: React.FC<SignInProps> = () => {
               autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={!!errors.emailError}
+              helperText={errors.emailError}
             />
 
             <TextField
@@ -90,8 +118,10 @@ const SignInPage: React.FC<SignInProps> = () => {
               type="password"
               value={password}
               onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              setPassword(e.target.value);
+                  }}
+              error={!!errors.passwordError}
+              helperText={errors.passwordError}
             />
 
             <Button
@@ -100,7 +130,7 @@ const SignInPage: React.FC<SignInProps> = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={handleSubmit}
             >
-              Login
+              Sign In
           </Button>
           <Button
             fullWidth
