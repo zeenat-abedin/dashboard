@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { getUser } from '../utils/auth';
+import { makeStyles } from '@mui/styles';
 
+import { getUser } from '../utils/auth';
 import Counter from '../components/Counter/Counter';
 import Dashboard from '../components/Dashboard/Dashboard';
 import UserDataForm from '../components/UserDataForm/UserDataForm';
@@ -13,8 +14,24 @@ interface User {
   email: string;
 }
 
+const useStyles = makeStyles({
+  h1Style: {
+    paddingTop: '20px',
+    paddingBottom: '20px',
+    marginBottom: '20px',
+    marginLeft: '20px',
+    fontFamily: 'sans-serif',
+    fontSize: '30px'
+  },
+  userProfileTrendStyle: {
+    marginTop: '40px',
+  },
+});
+
+
 const DashboardPage: FC = () => {
   const user: User = getUser();
+  const classes = useStyles();
   const navigate = useNavigate();
 
 const handleLogout = async () => {
@@ -34,7 +51,7 @@ const handleLogout = async () => {
         Logout
       </Button>
     </div> 
-      <h1>Dashboard</h1>
+      <h1 className={classes.h1Style}>Dashboard</h1>
       <Counter />
       <RichTextEditor />
       <UserDataForm/>
