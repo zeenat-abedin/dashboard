@@ -43,20 +43,16 @@ const SignInPage: React.FC<SignInProps> = () => {
     }
    })
    .catch((error: any) => {
-    const errorCode = error.code;
     const errorMessage = error.message;
-    const email = error.email;
-    const credential = GoogleAuthProvider.credentialFromError(error);
      console.error(errorMessage);
    });
   };
 
-
   return (
     <>
       <div className="signInPageBackground">
-      <div className="overlayGradient">
-      <Container maxWidth="xs">
+      <div className="overlayGradient" >
+      <Container maxWidth="xs" >
         <CssBaseline />
         <Box
           className="glassmorphicBackground"
@@ -116,7 +112,9 @@ const SignInPage: React.FC<SignInProps> = () => {
           </Button>
             <Grid container justifyContent={"flex-end"}>
               <Grid item>
-                <Link to="/signup">Don't have an account? Signup</Link>
+                <Box sx={{ pt: 2, pb: 2, pr: 2, pl: 2 }}>
+                 <Link to="/signup">Don't have an account? Signup</Link>
+                </Box>
               </Grid>
             </Grid>
           </Box>
