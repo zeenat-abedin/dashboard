@@ -21,3 +21,7 @@ if (!app) {
 
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
+
+export const signOut = () => {
+  return auth.signOut().catch(console.error);
+};

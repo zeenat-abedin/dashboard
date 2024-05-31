@@ -7,12 +7,12 @@ import { useAuth } from './utils/auth';
 
 function App() {
   useAuth()
-  
+
   return (
       <Routes>
       <Route path="/" element={<SignInPage />} /> 
       <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<DashboardPage/>} />
+      <Route path="/dashboard" element={<DashboardPage/>} />
       </Routes>
   );
 }

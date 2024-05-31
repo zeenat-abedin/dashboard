@@ -33,7 +33,7 @@ const SignInPage: React.FC<SignInProps> = () => {
   };
 
    const handleGoogleSignIn = () => {
-  signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider)
    .then((result: any) => {
     const idToken = result.credential.idToken;
     if (idToken) {
