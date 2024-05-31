@@ -3,16 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-import { getUser } from '../utils/auth';
 import Counter from '../components/Counter/Counter';
 import Dashboard from '../components/Dashboard/Dashboard';
 import UserDataForm from '../components/UserDataForm/UserDataForm';
 import RichTextEditor from '../components/RichTextEditor/RichTextEditor';
 import { signOut } from '../firebaseConfig';
 
-interface User {
-  email: string;
-}
 
 const useStyles = makeStyles({
   h1Style: {
@@ -23,14 +19,10 @@ const useStyles = makeStyles({
     fontFamily: 'sans-serif',
     fontSize: '30px'
   },
-  userProfileTrendStyle: {
-    marginTop: '40px',
-  },
 });
 
 
 const DashboardPage: FC = () => {
-  const user: User = getUser();
   const classes = useStyles();
   const navigate = useNavigate();
 
