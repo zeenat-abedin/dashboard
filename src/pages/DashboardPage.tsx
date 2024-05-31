@@ -16,9 +16,8 @@ const DashboardPage: FC = () => {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* <p>Welcome, {user.email}</p> */}
       <Counter />
-      {/* <RichTextEditor userData={user.email} /> */}
+      <RichTextEditor />
       <UserDataForm/>
       <Dashboard/>
     </div>

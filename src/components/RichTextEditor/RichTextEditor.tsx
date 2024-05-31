@@ -1,60 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
-import { Box, Typography } from '@mui/material';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { FC, useEffect, useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { Box, Button, Typography } from '@mui/material';
 
-interface RichTextEditorProps {
-  userData: {
-    name: string;
-  };
-}
+const modules = {
+  toolbar: [
+    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+    [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+    ['link', 'image'],
+    ['clean']
+  ],
+};
+
+const formats = [
+  'header', 'font', 'size',
+  'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'indent',
+  'link', 'image'
+];
 
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({userData}) => {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+interface RichTextEditorProps {}
 
-    useEffect(() => {
-    const savedContentKey = Object.keys(localStorage).find(key => key.startsWith('editorContent-'));
-    if (savedContentKey) {
-        const savedContent = localStorage.getItem(savedContentKey);
-        if (savedContent) {
-            const rawContent = JSON.parse(savedContent);
-            const editorState = EditorState.createWithContent(convertFromRaw(rawContent));
-            setEditorState(editorState);
-        }
+const RichTextEditor: FC<RichTextEditorProps> = () => {
+  const [content, setContent] = useState<string>('');
+
+  useEffect(() => {
+    // Load saved content from localStorage
+    const savedContent = localStorage.getItem('richTextContent');
+    if (savedContent) {
+      setContent(savedContent);
     }
-    }, []);
+  }, []);
 
-    const handleSave = () => {
-        const contentState = editorState.getCurrentContent();
-        const rawContent = convertToRaw(contentState);
-        const serializedContent = JSON.stringify(rawContent);
-        localStorage.setItem(`editorContent-${Date.now()}`, serializedContent);
-    };
+  const handleSave = () => {
+    localStorage.setItem('richTextContent', content);
+    alert('Content saved!');
+  };
 
-    const handleEditorChange = (state: EditorState) => {
-        setEditorState(state);
-        handleSave()
-    };
+  return (
+    <Box sx={{ p: 2, maxWidth: '800px', mx: 'auto' }}>
+      <Typography variant="h4" gutterBottom>Rich Text Editor</Typography>
+      <Box sx={{ minHeight: '400px', '& .ql-container': { minHeight: '350px' } }}>
+        <ReactQuill
+          value={content}
+          onChange={setContent}
+          modules={modules}
+          formats={formats}
+        />
+      </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSave}
+        sx={{ mt: 2 }}
+      >
+        Save
+      </Button>
+    </Box>
+  );
+};
 
-    return (
-        <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4 }}>
-            <Typography variant="h5" gutterBottom>
-                Rich Text Editor
-            </Typography>
-            <Box sx={{ border: '1px solid #ddd', padding: 2, mb: 2 }}>
-                <Editor
-                    editorState={editorState}
-                    toolbarClassName="toolbarClassName"
-                    wrapperClassName="wrapperClassName"
-                    editorClassName="editorClassName"
-                    onEditorStateChange={handleEditorChange}
-                />
-            </Box>
-        </Box>
-    )
-}
-
-export default RichTextEditor
-
+export default RichTextEditor;
