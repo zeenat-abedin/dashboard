@@ -30,10 +30,7 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
 
   useEffect(() => {
     // Load saved content from localStorage
-
-
     const lsUserData = StorageUtils.getFromLocalStorage('userData');
-    console.log('lsUserData', lsUserData);
     if(lsUserData && Object.keys(lsUserData).length){
       const formattedData = `
       <h1>${lsUserData.name}</h1>

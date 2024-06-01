@@ -39,8 +39,6 @@ const Dashboard: FC = () => {
     }
   }, [dispatch]);
 
-  console.log('userData', userData);
-
   return (
     <Box className={classes.root}>
       <div className={classes.userProfileContainer}>

@@ -36,8 +36,6 @@ const handleLogout = async () => {
   }
 };
 
-
-
   if(isChecking) return (
     <div>
       <h1>Checking...</h1>

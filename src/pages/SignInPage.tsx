@@ -47,14 +47,10 @@ const SignInPage: React.FC<SignInProps> = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Submitting form");
     if (!validateFields()) {
-      console.log("Validation failed");
       return;
     }
-    console.log("Validating fields");
     authenticate({ email });
-    console.log("Navigating to dashboard");
     navigate('/dashboard');
   };
 
