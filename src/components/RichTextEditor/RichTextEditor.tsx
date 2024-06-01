@@ -1,7 +1,8 @@
+import { Box, Button, Typography } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Box, Button, Typography } from '@mui/material';
+import StorageUtils from '../../utils/storageUtils';
 
 const modules = {
   toolbar: [
@@ -29,10 +30,25 @@ const RichTextEditor: FC<RichTextEditorProps> = () => {
 
   useEffect(() => {
     // Load saved content from localStorage
-    const savedContent = localStorage.getItem('richTextContent');
-    if (savedContent) {
-      setContent(savedContent);
+
+
+    const lsUserData = StorageUtils.getFromLocalStorage('userData');
+    console.log('lsUserData', lsUserData);
+    if(lsUserData && Object.keys(lsUserData).length){
+      const formattedData = `
+      <h1>${lsUserData.name}</h1>
+      <h2>${lsUserData.address}</h2>
+      <h3>${lsUserData.email}</h3>
+      <h4>${lsUserData.phone}</h4>
+    `;
+      setContent(formattedData);
+    } else  {
+      const savedContent = localStorage.getItem('richTextContent');
+      if (savedContent) {
+        setContent(savedContent);
+      }
     }
+
   }, []);
 
   const handleSave = () => {

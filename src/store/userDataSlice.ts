@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import StorageUtils from '../utils/storageUtils';
 
 interface UserData {
   id: string;
@@ -8,14 +9,15 @@ interface UserData {
   phone: string;
 }
 
-const initialState: UserData[] = [];
+const initialState = {} as UserData;
 
 const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
     addUserData: (state, action: PayloadAction<UserData>) => {
-      state.push(action.payload);
+      Object.assign(state, action.payload);
+      StorageUtils.saveToLocalStorage('userData', action.payload);
     },
   },
 });
