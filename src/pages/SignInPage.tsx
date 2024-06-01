@@ -58,21 +58,23 @@ const SignInPage: React.FC<SignInProps> = () => {
     navigate('/dashboard');
   };
 
-   const handleGoogleSignIn = () => {
-    signInWithPopup(auth, provider)
-   .then((result: any) => {
-    const idToken = result.credential?.idToken;
-    if (idToken) {
+const handleGoogleSignIn = (): void => {
+  signInWithPopup(auth, provider)
+    .then((result: any) => {
+      const idToken: string | undefined = result.user?.accessToken;
+      if (idToken) {
         console.log(idToken);
-    } else {
+        authenticate({ idToken });
+        navigate('/dashboard');
+      } else {
         console.error('ID token is null.');
-    }
-   })
-   .catch((error: any) => {
-    const errorMessage = error.message;
-     console.error(errorMessage);
-   });
-  };
+      }
+    })
+    .catch((error: any) => {
+      const errorMessage: string = error.message;
+      console.error(errorMessage);
+    });
+};
 
   return (
     <>
