@@ -1,21 +1,30 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebaseConfig';
+import { useState } from 'react';
 
-let isAuthenticated: boolean = false;
+
 let mockUser: any = null;
+let isLoggedIn: boolean = false;
 
 export const authenticate = (user: any): void => {
-  isAuthenticated = true;
+  isLoggedIn = true;
   mockUser = user;
 };
 
+export const signup = (userData: any): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      mockUser = userData;
+      isLoggedIn = true;
+      resolve(true); 
+    }, 1000); 
+  });
+};
+
 export const signout = (): void => {
-  isAuthenticated = false;
+  isLoggedIn = false;
   mockUser = null;
 };
 
-export const getIsAuthenticated = (): boolean => isAuthenticated;
+export const isAuthenticated = (): boolean => isLoggedIn;
 
 export const getUser = (): any => mockUser;
 

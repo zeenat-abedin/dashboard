@@ -8,9 +8,10 @@ import {
   Typography,
   TextField,
   Button,
+  Alert
 } from "@mui/material";
 import { LockOutlined } from '@mui/icons-material';
-import { authenticate } from '../utils/auth';
+import { signup, isAuthenticated } from '../utils/auth';
 
 interface SignUpProps {}
 
@@ -18,19 +19,18 @@ const SignUpPage: React.FC<SignUpProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const navigate = useNavigate();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  
-
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-    const mockUser = { email };
-    authenticate(mockUser);
-    navigate('/dashboard');
+  const navigate = useNavigate()
+  const handleSubmit = (userData: any) => {
+    signup(userData).then((success: any) => {
+      if (success) {
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          navigate('/'); 
+        }, 2000);
+      }
+    });
   };
 
  
@@ -78,23 +78,20 @@ const SignUpPage: React.FC<SignUpProps> = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-            />
-                
+            />               
             <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                  }}
-            />
-                
-
+              margin="normal"
+              required
+              fullWidth
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+            />                
             <Button
               fullWidth
               variant="contained"
@@ -105,6 +102,11 @@ const SignUpPage: React.FC<SignUpProps> = () => {
             </Button>
           </Box>
         </Box>
+      {showSuccessMessage && (
+        <Alert severity="success" onClose={() => setShowSuccessMessage(false)}>
+          Signup successful! Redirecting...
+        </Alert>
+      )}
       </Container>
       </div>
       </div>
