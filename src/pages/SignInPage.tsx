@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { LockOutlined } from "@mui/icons-material";
+import GoogleIcon from '@mui/icons-material/Google';
 import {
   Container,
   CssBaseline,
@@ -130,14 +131,23 @@ const handleGoogleSignIn = (): void => {
             >
               Sign In
           </Button>
-          <Button
+                
+        <Button
             fullWidth
             variant="contained"
-            color="primary"
+            startIcon={<GoogleIcon />}
             onClick={handleGoogleSignIn}
-          >
-          Sign In with Google
-          </Button>
+            sx={{
+              backgroundColor: '#d34836',
+              color: '#fff',
+              '&:hover': {
+              backgroundColor: '#3367D6',
+             },
+            }}
+           >
+           Sign in with Google
+        </Button>
+                
             <Grid container justifyContent={"flex-end"}>
               <Grid item>
                 <Box sx={{ pt: 2, pb: 2, pr: 2, pl: 2 }}>
