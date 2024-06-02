@@ -4,27 +4,20 @@
     gap: 1rem;
 }
 
-.signInPageBackground {
-  background-image: url('https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .overlayGradient {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#12559c, transparent);
+  background-image:  url(images/hero-bg.jpg);
+  background-color: rgba(255, 255, 255, 0.2);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .glassmorphicBackground {
   margin-top: 60px !important;
   backdrop-filter: blur(10px);
   border-radius: 10px;
   padding: 20px;
-  background-color: white; 
+  background-color:  rgba(255, 255, 255, 0.2); 
 }

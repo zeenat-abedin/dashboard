@@ -75,7 +75,7 @@ const handleGoogleSignIn = (): void => {
 
   return (
     <>
-      <div className="signInPageBackground">
+      <div>
       <div className="overlayGradient" >
       <Container maxWidth="xs" >
         <CssBaseline />
