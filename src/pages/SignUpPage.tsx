@@ -72,6 +72,9 @@ const SignUpPage: React.FC<SignUpProps> = () => {
                         color: "white",
                       },
                     },
+                    ".MuiInputBase-input": {
+                     color: "white", 
+                    },
                   }}
                 />
 
@@ -94,6 +97,9 @@ const SignUpPage: React.FC<SignUpProps> = () => {
                         color: "white",
                       },
                     },
+                    ".MuiInputBase-input": {
+                      color: "white", 
+                    },
                   }}
                 />
                 <TextField
@@ -114,6 +120,9 @@ const SignUpPage: React.FC<SignUpProps> = () => {
                       "&.Mui-focused": {
                         color: "white",
                       },
+                    },
+                    ".MuiInputBase-input": {
+                      color: "white", 
                     },
                   }}
                 />

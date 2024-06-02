@@ -119,6 +119,9 @@ const SignInPage: React.FC<SignInProps> = () => {
                             color: "white",
                           },
                         },
+                        ".MuiInputBase-input": {
+                          color: "white", 
+                        },
                       }}
                     />
                   </Grid>
@@ -144,6 +147,9 @@ const SignInPage: React.FC<SignInProps> = () => {
                           "&.Mui-focused": {
                             color: "white",
                           },
+                        },
+                        ".MuiInputBase-input": {
+                          color: "white", 
                         },
                       }}
                     />
