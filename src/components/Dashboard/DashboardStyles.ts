@@ -1,32 +1,24 @@
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { Box, Card, Avatar } from '@mui/material';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: theme.spacing(4),
-    },
-    chartContainer: {
-      width: '100%',
-      maxWidth: 800,
-    },
-    userProfileContainer: {
-      marginTop: theme.spacing(4),
-      width: '100%',
-      maxWidth: 400,
-    },
-    userProfileCard: {
-      padding: theme.spacing(2),
-    },
-    userProfileAvatar: {
-      width: theme.spacing(8),
-      height: theme.spacing(8),
-      marginBottom: theme.spacing(2),
-    },
-  }),
-);
+export const Root = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: theme.spacing(4),
+}));
 
-export default useStyles;
+export const ChartContainer = styled(Box)(() => ({
+  width: '100%',
+  maxWidth: 800,
+}));
+
+export const UserProfileCard = styled(Card)(({ theme }) => ({
+  padding: theme.spacing(2),
+}));
+
+export const UserProfileAvatar = styled(Avatar)(({ theme }) => ({
+  width: theme.spacing(8),
+  height: theme.spacing(8),
+  marginBottom: theme.spacing(2),
+}));

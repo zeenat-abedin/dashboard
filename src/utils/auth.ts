@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 
 let mockUser: any = null;
 let isLoggedIn: boolean = false;
@@ -27,16 +25,3 @@ export const signout = (): void => {
 export const isAuthenticated = (): boolean => isLoggedIn;
 
 export const getUser = (): any => mockUser;
-
-//   useEffect(() => {
-//     const unsubscribe = auth.onAuthStateChanged((user:any) => {
-//       if (user) {
-//         navigate('/dashboard');
-//       } else {
-//         navigate('/');
-//       }
-//     });
-
-//     return unsubscribe;
-//   }, [navigate]);
-// };

@@ -1,12 +1,18 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Bar } from 'react-chartjs-2';
+import { Box, CardContent, Typography } from '@mui/material';
+import { Chart, registerables } from 'chart.js';
+
 import { RootState } from '../../store/store';
 import { addUserData } from '../../store/userDataSlice';
 import StorageUtils from '../../utils/storageUtils';
-import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
-import { Chart, registerables } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import useStyles from './DashboardStyles';
+import {
+  Root,
+  ChartContainer,
+  UserProfileCard,
+  UserProfileAvatar,
+} from './DashboardStyles';
 
 interface UserData {
   name: string;
@@ -17,7 +23,6 @@ interface UserData {
 }
 
 const Dashboard: FC = () => {
-  const classes = useStyles();
   const userData = useSelector((state: RootState) => state.userData);
   const dispatch = useDispatch();
 
@@ -40,35 +45,36 @@ const Dashboard: FC = () => {
   }, [dispatch]);
 
   return (
-    <Box className={classes.root}>
-      <div className={classes.userProfileContainer}>
-        <Card className={classes.userProfileCard}>
+    <Root>
+      <Box sx={{ width: '100%', maxWidth: 400, mb: 4 }}>
+        <UserProfileCard>
           <CardContent>
-            <Avatar
-              className={classes.userProfileAvatar}
+            <UserProfileAvatar
               alt="User Avatar"
               src="https://avatar.iran.liara.run/public"
             />
             <Typography variant="h6" component="h2">
               {userData ? userData.name : 'Loading...'}
             </Typography>
-            <Typography color="textSecondary">{userData ? userData.email : 'Loading...'}</Typography>
+            <Typography color="textSecondary" gutterBottom>
+              {userData ? userData.email : 'Loading...'}
+            </Typography>
             <Typography variant="body2" gutterBottom>
               {userData ? userData.address : 'Loading...'}
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="body2">
               {userData ? userData.phone : 'Loading...'}
             </Typography>
           </CardContent>
-        </Card>
-      </div>
-      <div className={classes.chartContainer}>
+        </UserProfileCard>
+      </Box>
+      <ChartContainer>
         <Typography variant="h6" gutterBottom>
           User Profile Trend
         </Typography>
         <Bar data={chartData} />
-      </div>
-    </Box>
+      </ChartContainer>
+    </Root>
   );
 };
 
